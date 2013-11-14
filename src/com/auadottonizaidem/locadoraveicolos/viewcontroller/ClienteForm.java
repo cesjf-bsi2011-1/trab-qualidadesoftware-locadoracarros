@@ -28,6 +28,9 @@ public class ClienteForm extends javax.swing.JFrame {
 
     Cliente cli = null;
     EntityManager entity;
+    List<Cliente> listClientes;
+    Query query = null;
+    int id;
 
     /**
      * Creates new form ClienteForm
@@ -37,38 +40,64 @@ public class ClienteForm extends javax.swing.JFrame {
         entity = factory.createEntityManager();
 
         entity.getTransaction().begin();
-        Query query = entity.createNamedQuery("Cliente.findAll");
 
-        List<Cliente> listClientes = query.getResultList();
-
+        query = entity.createNamedQuery("Cliente.findAll");
 
 
         initComponents();
 
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date dataCad = new Date();
+        String currentData = sdf.format(dataCad);
+
+        tfDataCadastro.setText(currentData);
+
+        tfDataCadastro.setEnabled(false);
+
+        atualizaTabela();
+    }
+
+    private void atualizaTabela() {
+
+        listClientes = query.getResultList();
+
+        tbClientes.clearSelection();
+        tbClientes.removeAll();
+
         DefaultTableModel dfTable = (DefaultTableModel) tbClientes.getModel();
         dfTable.getDataVector().removeAllElements();
 
-        
-        
         for (Cliente c : listClientes) {
-        
-            Date d = new Date();
-            String dataAtual = d.toString();
-            d.setTime(c.getDataNascimento());
-            String data = d.toString();
-           
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Set your date format
+
+            Date dataNasc = new Date();
+            Date dataCad = new Date();
+
+            dataNasc.setTime(c.getDataNascimento());
+
+            dataCad.setTime(c.getDataCadastro());
+
+            String currentData = sdf.format(dataCad);
+            String currentData2 = sdf.format(dataNasc);
 
             dfTable.addRow(new Object[]{
                 c.getId(),
                 c.getNomeCompleto(),
                 c.getCpf(),
                 c.getSexo(),
-                data,
-                dataAtual
+                currentData,
+                currentData2
             });
 
         }
+    }
 
+    public void limpaCampos() {
+        tfCPF.setText("");
+        tfDataCadastro.setText("");
+        tfDataNascimento.setText("");
+        tfNome.setText("");
     }
 
     /**
@@ -96,6 +125,7 @@ public class ClienteForm extends javax.swing.JFrame {
         tfDataNascimento = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbClientes = new javax.swing.JTable();
+        btNovo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Clientes");
@@ -139,6 +169,11 @@ public class ClienteForm extends javax.swing.JFrame {
         });
 
         btEditar.setText("Editar");
+        btEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEditarActionPerformed(evt);
+            }
+        });
 
         btExcluir.setText("Excluir");
 
@@ -178,7 +213,19 @@ public class ClienteForm extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbClientesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbClientes);
+
+        btNovo.setText("Novo");
+        btNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNovoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -208,6 +255,8 @@ public class ClienteForm extends javax.swing.JFrame {
                                 .addComponent(btEditar)
                                 .addGap(33, 33, 33)
                                 .addComponent(btExcluir)
+                                .addGap(18, 18, 18)
+                                .addComponent(btNovo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton4))
                             .addGroup(layout.createSequentialGroup()
@@ -248,7 +297,8 @@ public class ClienteForm extends javax.swing.JFrame {
                     .addComponent(btSalvar)
                     .addComponent(btEditar)
                     .addComponent(btExcluir)
-                    .addComponent(jButton4))
+                    .addComponent(jButton4)
+                    .addComponent(btNovo))
                 .addContainerGap(95, Short.MAX_VALUE))
         );
 
@@ -263,7 +313,6 @@ public class ClienteForm extends javax.swing.JFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         // TODO add your handling code here:
-        entity.getTransaction().begin();
         String nome = tfNome.getText();
         String cpf = tfCPF.getText();
         String dataNasc = tfDataNascimento.getText();
@@ -293,7 +342,12 @@ public class ClienteForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Algo Deu Errado, Cliente não Cadastrado!");
             }
         }
-
+        atualizaTabela();
+        limpaCampos();
+        btEditar.setEnabled(false);
+        btSalvar.setEnabled(false);
+        btExcluir.setEnabled(false);
+        btNovo.setEnabled(true);
 
     }//GEN-LAST:event_btSalvarActionPerformed
 
@@ -301,6 +355,46 @@ public class ClienteForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
+        // TODO add your handling code here:
+        limpaCampos();
+        btSalvar.setEnabled(true);
+        btEditar.setEnabled(false);
+        btExcluir.setEnabled(false);
+    }//GEN-LAST:event_btNovoActionPerformed
+
+    private void tbClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbClientesMouseClicked
+        // TODO add your handling code here:
+        int linha = tbClientes.getSelectedRow();
+
+        if (linha < 0) {
+            return;
+        }
+        
+        DefaultTableModel tm;
+        tm = (DefaultTableModel) tbClientes.getModel();
+        id = (int)tm.getValueAt(linha, 0);
+        tfNome.setText((String) tm.getValueAt(linha, 1));
+        tfCPF.setText((String) tm.getValueAt(linha, 2));
+        tfDataNascimento.setText((String) tm.getValueAt(linha, 4));
+        tfDataCadastro.setText((String) tm.getValueAt(linha, 5));
+
+
+        btNovo.setEnabled(false);
+        btEditar.setEnabled(true);
+        btExcluir.setEnabled(true);
+        btSalvar.setEnabled(false);
+
+    }//GEN-LAST:event_tbClientesMouseClicked
+
+    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
+        // TODO add your handling code here:
+        
+        cli = new Cliente();
+        
+        
+    }//GEN-LAST:event_btEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -339,6 +433,7 @@ public class ClienteForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btExcluir;
+    private javax.swing.JButton btNovo;
     private javax.swing.JButton btSalvar;
     private javax.swing.JComboBox cbSexo;
     private javax.swing.JButton jButton4;
