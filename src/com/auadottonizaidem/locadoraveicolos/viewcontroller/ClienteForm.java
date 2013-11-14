@@ -98,6 +98,10 @@ public class ClienteForm extends javax.swing.JFrame {
         tfDataCadastro.setText("");
         tfDataNascimento.setText("");
         tfNome.setText("");
+        btEditar.setEnabled(false);
+        btSalvar.setEnabled(false);
+        btExcluir.setEnabled(false);
+        btNovo.setEnabled(true);
     }
 
     /**
@@ -176,6 +180,11 @@ public class ClienteForm extends javax.swing.JFrame {
         });
 
         btExcluir.setText("Excluir");
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Sair");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -360,8 +369,6 @@ public class ClienteForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         limpaCampos();
         btSalvar.setEnabled(true);
-        btEditar.setEnabled(false);
-        btExcluir.setEnabled(false);
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void tbClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbClientesMouseClicked
@@ -371,10 +378,10 @@ public class ClienteForm extends javax.swing.JFrame {
         if (linha < 0) {
             return;
         }
-        
+
         DefaultTableModel tm;
         tm = (DefaultTableModel) tbClientes.getModel();
-        id = (int)tm.getValueAt(linha, 0);
+        id = (int) tm.getValueAt(linha, 0);
         tfNome.setText((String) tm.getValueAt(linha, 1));
         tfCPF.setText((String) tm.getValueAt(linha, 2));
         tfDataNascimento.setText((String) tm.getValueAt(linha, 4));
@@ -390,11 +397,53 @@ public class ClienteForm extends javax.swing.JFrame {
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         // TODO add your handling code here:
-        
-        cli = new Cliente();
-        
-        
+
+        String nome = tfNome.getText();
+        String cpf = tfCPF.getText();
+        String dataNasc = tfDataNascimento.getText();
+
+        Cliente cliente = entity.find(Cliente.class, id);
+
+        if (nome.equals("") || cpf.equals("")) {
+            JOptionPane.showMessageDialog(null, "Campos Obrigatorios não Preenchidos!");
+        } else {
+            cliente.setNomeCompleto(nome);
+            cliente.setCpf(cpf);
+            cliente.setSexo("M");
+            DateFormat dtFormat = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                Date dataNascimento = dtFormat.parse(dataNasc);
+                cliente.setDataNascimento(dataNascimento.getTime());
+                Date dtCad = new Date();
+                cliente.setDataCadastro(dtCad.getTime());
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(null, "Data Invalida!");
+            }
+            try {
+                entity.getTransaction().commit();
+                JOptionPane.showMessageDialog(null, "Cliente Editado com Sucesso!");
+            } catch (Exception e) {
+                entity.getTransaction().rollback();
+                JOptionPane.showMessageDialog(null, "Algo Deu Errado, Cliente não Editado!");
+            }
+        }
+        atualizaTabela();
+        limpaCampos();
+
     }//GEN-LAST:event_btEditarActionPerformed
+
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        // TODO add your handling code here:
+        try{
+            Cliente cliente = entity.find(Cliente.class, id);
+            entity.remove(cliente);
+            JOptionPane.showMessageDialog(null, "Cliente Excluido com Sucesso!");
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Algo Deu Errado, Cliente não Excluido!");
+        }
+        atualizaTabela();
+        limpaCampos();
+    }//GEN-LAST:event_btExcluirActionPerformed
 
     /**
      * @param args the command line arguments
