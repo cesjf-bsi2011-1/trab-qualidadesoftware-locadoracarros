@@ -27,7 +27,6 @@ import javax.swing.table.DefaultTableModel;
 public class VeiculoForm extends javax.swing.JFrame {
 
     private EntityManager entityManager;
-    private List<Veiculo> veiculos;
     
     /**
      * Creates new form InsertVeiculoForm
@@ -43,7 +42,7 @@ public class VeiculoForm extends javax.swing.JFrame {
         buttonDeletar.setEnabled(false);
         
         Query query = entityManager.createNamedQuery("Veiculo.findAll");
-        veiculos = query.getResultList();
+        List<Veiculo> veiculos = query.getResultList();
         
         tableVeiculos.clearSelection();
         tableVeiculos.removeAll();
@@ -351,7 +350,9 @@ public class VeiculoForm extends javax.swing.JFrame {
             tableVeiculos.removeAll();
 
             tm.getDataVector().removeAllElements();
-
+            
+            Query query = entityManager.createNamedQuery("Veiculo.findAll");
+            List<Veiculo> veiculos = query.getResultList();
             for (Veiculo v : veiculos) {
                 Date d = new Date(v.getDataFabricacao());
 
@@ -387,6 +388,7 @@ public class VeiculoForm extends javax.swing.JFrame {
         DefaultTableModel tm = (DefaultTableModel) tableVeiculos.getModel();
         int idVeiculo = (int) tm.getValueAt(linha, 0);
         Veiculo veiculo = entityManager.find(Veiculo.class, idVeiculo);
+        
         try {
             entityManager.getTransaction().begin();
             entityManager.remove(veiculo);
@@ -397,6 +399,8 @@ public class VeiculoForm extends javax.swing.JFrame {
 
             tm.getDataVector().removeAllElements();
 
+            Query query = entityManager.createNamedQuery("Veiculo.findAll");
+            List<Veiculo> veiculos = query.getResultList();
             for (Veiculo v : veiculos) {
                 Date d = new Date(v.getDataFabricacao());
 
