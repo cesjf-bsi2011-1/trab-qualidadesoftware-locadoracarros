@@ -5,16 +5,20 @@
 package com.auadottonizaidem.locadoraveicolos.viewcontroller;
 
 import com.auadottonizaidem.locadoraveicolos.model.Cliente;
+import com.sun.security.ntlm.Client;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -31,7 +35,39 @@ public class ClienteForm extends javax.swing.JFrame {
     public ClienteForm() {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("LocadoraVeiculosPU");
         entity = factory.createEntityManager();
+
+        entity.getTransaction().begin();
+        Query query = entity.createNamedQuery("Cliente.findAll");
+
+        List<Cliente> listClientes = query.getResultList();
+
+
+
         initComponents();
+
+        DefaultTableModel dfTable = (DefaultTableModel) tbClientes.getModel();
+        dfTable.getDataVector().removeAllElements();
+
+        
+        
+        for (Cliente c : listClientes) {
+        
+            Date d = new Date();
+            String dataAtual = d.toString();
+            d.setTime(c.getDataNascimento());
+            String data = d.toString();
+           
+
+            dfTable.addRow(new Object[]{
+                c.getId(),
+                c.getNomeCompleto(),
+                c.getCpf(),
+                c.getSexo(),
+                data,
+                dataAtual
+            });
+
+        }
 
     }
 
@@ -60,10 +96,6 @@ public class ClienteForm extends javax.swing.JFrame {
         tfDataNascimento = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbClientes = new javax.swing.JTable();
-        btBuscarTodos = new javax.swing.JButton();
-        btBuscar = new javax.swing.JButton();
-        tfBuscaCliente = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Clientes");
@@ -109,7 +141,6 @@ public class ClienteForm extends javax.swing.JFrame {
         btEditar.setText("Editar");
 
         btExcluir.setText("Excluir");
-        btExcluir.setActionCommand("Excluir");
 
         jButton4.setText("Sair");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -149,12 +180,6 @@ public class ClienteForm extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbClientes);
 
-        btBuscarTodos.setText("Listar Todos");
-
-        btBuscar.setText("Listar");
-
-        jLabel1.setText("Nome Cliente:");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -177,15 +202,6 @@ public class ClienteForm extends javax.swing.JFrame {
                         .addContainerGap(225, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfBuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btBuscar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btBuscarTodos))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(btSalvar)
                                 .addGap(26, 26, 26)
@@ -225,15 +241,9 @@ public class ClienteForm extends javax.swing.JFrame {
                 .addComponent(lbDataCadastro)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btBuscarTodos)
-                    .addComponent(btBuscar)
-                    .addComponent(tfBuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
                     .addComponent(btEditar)
@@ -327,14 +337,11 @@ public class ClienteForm extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btBuscar;
-    private javax.swing.JButton btBuscarTodos;
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btSalvar;
     private javax.swing.JComboBox cbSexo;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbCPF;
     private javax.swing.JLabel lbDataCadastro;
@@ -342,7 +349,6 @@ public class ClienteForm extends javax.swing.JFrame {
     private javax.swing.JLabel lbNome;
     private javax.swing.JLabel lbSexo;
     private javax.swing.JTable tbClientes;
-    private javax.swing.JTextField tfBuscaCliente;
     private javax.swing.JFormattedTextField tfCPF;
     private javax.swing.JFormattedTextField tfDataCadastro;
     private javax.swing.JFormattedTextField tfDataNascimento;
