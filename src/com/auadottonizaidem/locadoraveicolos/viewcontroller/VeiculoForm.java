@@ -5,7 +5,7 @@
  */
 
 package com.auadottonizaidem.locadoraveicolos.viewcontroller;
-
+ 
 import com.auadottonizaidem.locadoraveicolos.model.Veiculo;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
+ * 
  * @author auadtassio
  */
 public class VeiculoForm extends javax.swing.JFrame {
@@ -95,10 +95,8 @@ public class VeiculoForm extends javax.swing.JFrame {
         tableVeiculos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Informações"));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         buttonNovo.setText("Novo");
         buttonNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -106,7 +104,6 @@ public class VeiculoForm extends javax.swing.JFrame {
                 buttonNovoActionPerformed(evt);
             }
         });
-        jPanel1.add(buttonNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, -1, -1));
 
         buttonCancelar.setText("Cancelar");
         buttonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -114,37 +111,24 @@ public class VeiculoForm extends javax.swing.JFrame {
                 buttonCancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(buttonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 140, -1, -1));
 
         jLabel4.setText("Cor");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
 
         jLabel5.setText("Placa");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, -1, -1));
-        jPanel1.add(textFieldPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(161, 111, 156, -1));
 
         try {
             formatedTextFielData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jPanel1.add(formatedTextFielData, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, 133, -1));
 
         jLabel6.setText("Data");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, -1, -1));
-        jPanel1.add(textFieldNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 52, 223, -1));
-        jPanel1.add(textFieldMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 174, -1));
-        jPanel1.add(textFieldCilindrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, 92, -1));
-        jPanel1.add(textFieldCor, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 111, 125, -1));
 
         jLabel1.setText("Nome");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 29, -1, -1));
 
         jLabel2.setText("Marca");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, -1, -1));
 
         jLabel3.setText("Cilindradas");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, -1, -1));
 
         buttonDeletar.setText("Deletar");
         buttonDeletar.addActionListener(new java.awt.event.ActionListener() {
@@ -152,7 +136,6 @@ public class VeiculoForm extends javax.swing.JFrame {
                 buttonDeletarActionPerformed(evt);
             }
         });
-        jPanel1.add(buttonDeletar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, -1, -1));
 
         buttonAtualizar.setText("Atualizar");
         buttonAtualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -160,9 +143,86 @@ public class VeiculoForm extends javax.swing.JFrame {
                 buttonAtualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(buttonAtualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 550, 180));
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jLabel1)
+                .addGap(190, 190, 190)
+                .addComponent(jLabel2)
+                .addGap(137, 137, 137)
+                .addComponent(jLabel3))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(textFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addComponent(textFieldMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(textFieldCilindrada, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel4)
+                .addGap(115, 115, 115)
+                .addComponent(jLabel5)
+                .addGap(133, 133, 133)
+                .addComponent(jLabel6))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(textFieldCor, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(textFieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addComponent(formatedTextFielData, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(244, 244, 244)
+                .addComponent(buttonNovo)
+                .addGap(12, 12, 12)
+                .addComponent(buttonAtualizar)
+                .addGap(8, 8, 8)
+                .addComponent(buttonDeletar)
+                .addGap(5, 5, 5)
+                .addComponent(buttonCancelar))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(jLabel1))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addGap(4, 4, 4)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(textFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textFieldMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textFieldCilindrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(formatedTextFielData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textFieldCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textFieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(2, 2, 2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonNovo)
+                    .addComponent(buttonAtualizar)
+                    .addComponent(buttonDeletar)
+                    .addComponent(buttonCancelar)))
+        );
 
         tableVeiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -199,7 +259,24 @@ public class VeiculoForm extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tableVeiculos);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 550, 110));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -298,7 +375,7 @@ public class VeiculoForm extends javax.swing.JFrame {
         textFieldCor.setText((String) tm.getValueAt(linha, 4));
         textFieldPlaca.setText((String) tm.getValueAt(linha, 5));
         formatedTextFielData.setText((String) tm.getValueAt(linha, 6));
-       
+        
     }//GEN-LAST:event_tableVeiculosMouseReleased
 
     private void tableVeiculosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tableVeiculosKeyReleased

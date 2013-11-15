@@ -5,7 +5,6 @@
 package com.auadottonizaidem.locadoraveicolos.viewcontroller;
 
 import com.auadottonizaidem.locadoraveicolos.model.Cliente;
-import com.sun.security.ntlm.Client;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
