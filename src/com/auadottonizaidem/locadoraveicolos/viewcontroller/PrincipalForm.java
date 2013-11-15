@@ -17,6 +17,7 @@ public class PrincipalForm extends javax.swing.JFrame {
      */
     public PrincipalForm() {
         initComponents();
+        setExtendedState(PrincipalForm.MAXIMIZED_BOTH);
     }
 
     /**
@@ -28,7 +29,81 @@ public class PrincipalForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar1 = new javax.swing.JMenuBar();
+        menuFuncionarios = new javax.swing.JMenu();
+        menuClientes = new javax.swing.JMenu();
+        menuVeiculos = new javax.swing.JMenu();
+        menuLocacoes = new javax.swing.JMenu();
+        menuSair = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        menuFuncionarios.setText("Funcionários");
+        menuFuncionarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuFuncionariosMouseClicked(evt);
+            }
+        });
+        menuFuncionarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuFuncionariosActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(menuFuncionarios);
+
+        menuClientes.setText("Clientes");
+        menuClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuClientesMouseClicked(evt);
+            }
+        });
+        menuClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuClientesActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(menuClientes);
+
+        menuVeiculos.setText("Veículos");
+        menuVeiculos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuVeiculosMouseClicked(evt);
+            }
+        });
+        menuVeiculos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuVeiculosActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(menuVeiculos);
+
+        menuLocacoes.setText("Locações");
+        menuLocacoes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuLocacoesMouseClicked(evt);
+            }
+        });
+        menuLocacoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuLocacoesActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(menuLocacoes);
+
+        menuSair.setText("Sair");
+        menuSair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuSairMouseClicked(evt);
+            }
+        });
+        menuSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSairActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(menuSair);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -38,11 +113,51 @@ public class PrincipalForm extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 279, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void menuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_menuSairActionPerformed
+
+    private void menuFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFuncionariosActionPerformed
+        new FuncionarioForm().setVisible(true);
+    }//GEN-LAST:event_menuFuncionariosActionPerformed
+
+    private void menuClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuClientesActionPerformed
+        new ClienteForm().setVisible(true);
+    }//GEN-LAST:event_menuClientesActionPerformed
+
+    private void menuVeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVeiculosActionPerformed
+        new VeiculoForm().setVisible(true);
+    }//GEN-LAST:event_menuVeiculosActionPerformed
+
+    private void menuFuncionariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuFuncionariosMouseClicked
+        new FuncionarioForm().setVisible(true);
+    }//GEN-LAST:event_menuFuncionariosMouseClicked
+
+    private void menuClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuClientesMouseClicked
+        new ClienteForm().setVisible(true);
+    }//GEN-LAST:event_menuClientesMouseClicked
+
+    private void menuVeiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuVeiculosMouseClicked
+       new VeiculoForm().setVisible(true);
+    }//GEN-LAST:event_menuVeiculosMouseClicked
+
+    private void menuLocacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuLocacoesMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuLocacoesMouseClicked
+
+    private void menuSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSairMouseClicked
+        dispose();
+    }//GEN-LAST:event_menuSairMouseClicked
+
+    private void menuLocacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLocacoesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuLocacoesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -80,5 +195,11 @@ public class PrincipalForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu menuClientes;
+    private javax.swing.JMenu menuFuncionarios;
+    private javax.swing.JMenu menuLocacoes;
+    private javax.swing.JMenu menuSair;
+    private javax.swing.JMenu menuVeiculos;
     // End of variables declaration//GEN-END:variables
 }
