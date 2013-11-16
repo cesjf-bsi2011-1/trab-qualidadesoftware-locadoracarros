@@ -157,7 +157,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "com.auadottonizaidem.locadoraveicolos.model.Cliente[ id=" + id + " ]";
+        return nomeCompleto;
     }
     
 }

@@ -29,9 +29,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Locacao.findAll", query = "SELECT l FROM Locacao l"),
+    @NamedQuery(name = "Locacao.findAllNaoDevolvido", query = "SELECT l FROM Locacao l where l.dataDevolucao is null"),
     @NamedQuery(name = "Locacao.findById", query = "SELECT l FROM Locacao l WHERE l.id = :id"),
     @NamedQuery(name = "Locacao.findByDataLocacao", query = "SELECT l FROM Locacao l WHERE l.dataLocacao = :dataLocacao"),
-    @NamedQuery(name = "Locacao.findByConcluida", query = "SELECT l FROM Locacao l WHERE l.concluida = :concluida")})
+    @NamedQuery(name = "Locacao.findByDataDevolucao", query = "SELECT l FROM Locacao l WHERE l.dataDevolucao = :dataDevolucao")})
 public class Locacao implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,8 +43,9 @@ public class Locacao implements Serializable {
     @Basic(optional = false)
     @Column(name = "data_locacao")
     private long dataLocacao;
-    @Column(name = "concluida")
-    private Boolean concluida;
+    @Basic(optional = false)
+    @Column(name = "data_devolucao")
+    private long dataDevolucao;
     @JoinColumn(name = "cliente_locador", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Cliente clienteLocador;
@@ -61,9 +63,10 @@ public class Locacao implements Serializable {
         this.id = id;
     }
 
-    public Locacao(Integer id, long dataLocacao) {
+    public Locacao(Integer id, long dataLocacao, long dataDevolucao) {
         this.id = id;
         this.dataLocacao = dataLocacao;
+        this.dataDevolucao = dataDevolucao;
     }
 
     public Integer getId() {
@@ -82,12 +85,12 @@ public class Locacao implements Serializable {
         this.dataLocacao = dataLocacao;
     }
 
-    public Boolean getConcluida() {
-        return concluida;
+    public long getDataDevolucao() {
+        return dataDevolucao;
     }
 
-    public void setConcluida(Boolean concluida) {
-        this.concluida = concluida;
+    public void setDataDevolucao(long dataDevolucao) {
+        this.dataDevolucao = dataDevolucao;
     }
 
     public Cliente getClienteLocador() {
