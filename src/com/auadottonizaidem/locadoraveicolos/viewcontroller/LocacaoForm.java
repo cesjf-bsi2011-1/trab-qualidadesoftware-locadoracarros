@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -9,6 +9,7 @@ package com.auadottonizaidem.locadoraveicolos.viewcontroller;
 import com.auadottonizaidem.locadoraveicolos.model.Cliente;
 import com.auadottonizaidem.locadoraveicolos.model.Locacao;
 import com.auadottonizaidem.locadoraveicolos.model.Veiculo;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +17,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -154,7 +156,7 @@ public class LocacaoForm extends javax.swing.JFrame {
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Veículos em Locação"));
 
-        jTable1.setBorder(javax.swing.BorderFactory.createTitledBorder("Veículos em Locação"));
+        jTable1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -221,6 +223,7 @@ public class LocacaoForm extends javax.swing.JFrame {
         locacao.setClienteLocador(c);
         locacao.setVeiculoLocado(veiSel);
         locacao.setDataLocacao(new Date().getTime());
+        locacao.setFuncionarioResponsavel(LoginForm.funcionarioLogado);
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(locacao);
@@ -264,6 +267,29 @@ public class LocacaoForm extends javax.swing.JFrame {
             locacao.setDataDevolucao(new Date().getTime());
             entityManager.getTransaction().commit();
             
+            /**
+             * Calculo da locação
+             */
+            int diaLocacao = Integer.parseInt(new SimpleDateFormat("dd")
+                    .format(locacao.getDataLocacao()));
+            int diaDevolucao = Integer.parseInt(new SimpleDateFormat("dd")
+                    .format(locacao.getDataLocacao()));
+            int mesLocacao = Integer.parseInt(new SimpleDateFormat("MM")
+                    .format(locacao.getDataLocacao()));
+            int mesDevolucao = Integer.parseInt(new SimpleDateFormat("MM")
+                    .format(locacao.getDataLocacao()));
+            
+            int diasDeLocacao = diaDevolucao - diaLocacao;
+            if(diasDeLocacao == 0) diasDeLocacao = 1;
+            if(mesDevolucao != mesLocacao) {
+                diasDeLocacao *= ((mesDevolucao - mesLocacao) * 30);
+            }
+            
+            float valorLocacao = locacao.getVeiculoLocado().getPreco().floatValue() 
+                    * diasDeLocacao;
+            
+            
+            
             buttonDevolucao.setEnabled(false);
         
             Query query = entityManager.createNamedQuery("Locacao.findAllNaoDevolvido");
@@ -286,6 +312,8 @@ public class LocacaoForm extends javax.swing.JFrame {
                     new SimpleDateFormat("dd/MM/yyyy").format(dataDevolucao)
                 });
             }
+            
+            JOptionPane.showMessageDialog(null, "Valor da Locação: " + valorLocacao);
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
         }
@@ -294,41 +322,6 @@ public class LocacaoForm extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         buttonDevolucao.setEnabled(true);
     }//GEN-LAST:event_jTable1MouseClicked
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LocacaoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LocacaoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LocacaoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LocacaoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LocacaoForm().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonDevolucao;

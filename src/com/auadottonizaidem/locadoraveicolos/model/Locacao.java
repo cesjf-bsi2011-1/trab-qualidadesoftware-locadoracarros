@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Locacao.findAll", query = "SELECT l FROM Locacao l"),
-    @NamedQuery(name = "Locacao.findAllNaoDevolvido", query = "SELECT l FROM Locacao l where l.dataDevolucao is null"),
+    @NamedQuery(name = "Locacao.findAllNaoDevolvido", query = "SELECT l FROM Locacao l where l.dataDevolucao = 0"),
     @NamedQuery(name = "Locacao.findById", query = "SELECT l FROM Locacao l WHERE l.id = :id"),
     @NamedQuery(name = "Locacao.findByDataLocacao", query = "SELECT l FROM Locacao l WHERE l.dataLocacao = :dataLocacao"),
     @NamedQuery(name = "Locacao.findByDataDevolucao", query = "SELECT l FROM Locacao l WHERE l.dataDevolucao = :dataDevolucao")})

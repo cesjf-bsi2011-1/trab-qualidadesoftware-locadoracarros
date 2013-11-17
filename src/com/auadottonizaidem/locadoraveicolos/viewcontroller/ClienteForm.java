@@ -359,9 +359,6 @@ public class ClienteForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btSalvarActionPerformed
 
-    public static void main(String[] args) {
-        new ClienteForm().setVisible(true);
-    }
     
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
