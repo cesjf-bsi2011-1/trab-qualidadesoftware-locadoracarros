@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS `locadoraveiculo`.`veiculo` (
   `placa` VARCHAR(8) NOT NULL,
   `cor` VARCHAR(45) NOT NULL,
   `data_fabricacao` BIGINT(20) NOT NULL,
+  `preco` DECIMAL(14,2) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
@@ -49,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `locadoraveiculo`.`locacao` (
   `veiculo_locado` INT(11) NOT NULL,
   `funcionario_responsavel` INT(11) NOT NULL,
   `data_locacao` BIGINT(20) NOT NULL,
-  `concluida` TINYINT(1) NULL DEFAULT FALSE,
+  `data_devolucao` BIGINT(20) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_locacao_cliente_idx` (`cliente_locador` ASC),
   INDEX `fk_locacao_veiculo1_idx` (`veiculo_locado` ASC),

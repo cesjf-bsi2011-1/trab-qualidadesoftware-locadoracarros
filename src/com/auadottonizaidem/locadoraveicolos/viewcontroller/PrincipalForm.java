@@ -6,6 +6,8 @@
 
 package com.auadottonizaidem.locadoraveicolos.viewcontroller;
 
+import com.auadottonizaidem.locadoraveicolos.model.Locacao;
+
 /**
  *
  * @author auadtassio
@@ -148,7 +150,7 @@ public class PrincipalForm extends javax.swing.JFrame {
     }//GEN-LAST:event_menuVeiculosMouseClicked
 
     private void menuLocacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuLocacoesMouseClicked
-        // TODO add your handling code here:
+        new LocacaoForm().setVisible(true);
     }//GEN-LAST:event_menuLocacoesMouseClicked
 
     private void menuSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSairMouseClicked
@@ -156,7 +158,7 @@ public class PrincipalForm extends javax.swing.JFrame {
     }//GEN-LAST:event_menuSairMouseClicked
 
     private void menuLocacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLocacoesActionPerformed
-        // TODO add your handling code here:
+        new LocacaoForm().setVisible(true);
     }//GEN-LAST:event_menuLocacoesActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

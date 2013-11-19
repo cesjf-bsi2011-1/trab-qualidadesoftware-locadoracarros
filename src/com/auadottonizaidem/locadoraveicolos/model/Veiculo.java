@@ -7,6 +7,7 @@
 package com.auadottonizaidem.locadoraveicolos.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -37,8 +38,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Veiculo.findByCilindrada", query = "SELECT v FROM Veiculo v WHERE v.cilindrada = :cilindrada"),
     @NamedQuery(name = "Veiculo.findByPlaca", query = "SELECT v FROM Veiculo v WHERE v.placa = :placa"),
     @NamedQuery(name = "Veiculo.findByCor", query = "SELECT v FROM Veiculo v WHERE v.cor = :cor"),
-    @NamedQuery(name = "Veiculo.findByDataFabricacao", query = "SELECT v FROM Veiculo v WHERE v.dataFabricacao = :dataFabricacao")})
+    @NamedQuery(name = "Veiculo.findByDataFabricacao", query = "SELECT v FROM Veiculo v WHERE v.dataFabricacao = :dataFabricacao"),
+    @NamedQuery(name = "Veiculo.findByPreco", query = "SELECT v FROM Veiculo v WHERE v.preco = :preco")})
 public class Veiculo implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "veiculoLocado")
+    private List<Locacao> locacaoList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,8 +67,10 @@ public class Veiculo implements Serializable {
     @Basic(optional = false)
     @Column(name = "data_fabricacao")
     private long dataFabricacao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "veiculoLocado")
-    private List<Locacao> locacaoList;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Basic(optional = false)
+    @Column(name = "preco")
+    private BigDecimal preco;
 
     public Veiculo() {
     }
@@ -73,7 +79,7 @@ public class Veiculo implements Serializable {
         this.id = id;
     }
 
-    public Veiculo(Integer id, String nome, String marca, String cilindrada, String placa, String cor, long dataFabricacao) {
+    public Veiculo(Integer id, String nome, String marca, String cilindrada, String placa, String cor, long dataFabricacao, BigDecimal preco) {
         this.id = id;
         this.nome = nome;
         this.marca = marca;
@@ -81,6 +87,7 @@ public class Veiculo implements Serializable {
         this.placa = placa;
         this.cor = cor;
         this.dataFabricacao = dataFabricacao;
+        this.preco = preco;
     }
 
     public Integer getId() {
@@ -139,13 +146,12 @@ public class Veiculo implements Serializable {
         this.dataFabricacao = dataFabricacao;
     }
 
-    @XmlTransient
-    public List<Locacao> getLocacaoList() {
-        return locacaoList;
+    public BigDecimal getPreco() {
+        return preco;
     }
 
-    public void setLocacaoList(List<Locacao> locacaoList) {
-        this.locacaoList = locacaoList;
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
     }
 
     @Override
@@ -170,7 +176,16 @@ public class Veiculo implements Serializable {
 
     @Override
     public String toString() {
-        return "com.auadottonizaidem.locadoraveicolos.model.Veiculo[ id=" + id + " ]";
+        return nome + " [R$ "+ preco +" diária]";
+    }
+
+    @XmlTransient
+    public List<Locacao> getLocacaoList() {
+        return locacaoList;
+    }
+
+    public void setLocacaoList(List<Locacao> locacaoList) {
+        this.locacaoList = locacaoList;
     }
     
 }

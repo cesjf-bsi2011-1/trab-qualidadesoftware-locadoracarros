@@ -19,11 +19,14 @@ import javax.swing.JOptionPane;
  */
 public class LoginForm extends javax.swing.JFrame {
 
+    public static Funcionario funcionarioLogado = null;
+    
     /**
      * Creates new form LoginForm
      */
     public LoginForm() {
         initComponents();
+        
     }
 
     /**
@@ -104,8 +107,8 @@ public class LoginForm extends javax.swing.JFrame {
         try {
             Query query = entity.createNamedQuery("Funcionario.Autenticar")
                     .setParameter("usuario", usuario).setParameter("senha", senha);
-            Funcionario funcionario = (Funcionario) query.getSingleResult();
-            if(funcionario == null) {
+            funcionarioLogado = (Funcionario) query.getSingleResult();
+            if(funcionarioLogado == null) {
                 JOptionPane.showMessageDialog(null, "Usuário e/ou Senha inválidos");
             } else {
                 new PrincipalForm().setVisible(true);
