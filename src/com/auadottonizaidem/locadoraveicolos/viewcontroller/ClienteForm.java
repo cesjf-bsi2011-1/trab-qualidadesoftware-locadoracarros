@@ -368,6 +368,7 @@ public class ClienteForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         limpaCampos();
         btSalvar.setEnabled(true);
+        JOptionPane.showMessageDialog(null, "Teste de MERGE");
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void tbClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbClientesMouseClicked
