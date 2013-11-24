@@ -6,6 +6,7 @@ package com.auadottonizaidem.locadoraveicolos.viewcontroller;
 
 import com.auadottonizaidem.locadoraveicolos.model.Cliente;
 import com.auadottonizaidem.locadoraveicolos.model.Funcionario;
+import com.auadottonizaidem.locadoraveiculo.utils.DBConnection;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,10 +35,7 @@ public class FuncionarioForm extends javax.swing.JFrame {
      * Creates new form FuncionarioForm
      */
     public FuncionarioForm() {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("LocadoraVeiculosPU");
-        entity = factory.createEntityManager();
-
-        entity.getTransaction().begin();
+        entity = DBConnection.getEntityManager();
 
         query = entity.createNamedQuery("Funcionario.findAll");
 

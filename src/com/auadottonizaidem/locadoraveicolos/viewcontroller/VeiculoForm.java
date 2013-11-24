@@ -7,6 +7,7 @@
 package com.auadottonizaidem.locadoraveicolos.viewcontroller;
  
 import com.auadottonizaidem.locadoraveicolos.model.Veiculo;
+import com.auadottonizaidem.locadoraveiculo.utils.DBConnection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,10 +34,9 @@ public class VeiculoForm extends javax.swing.JFrame {
      */
     public VeiculoForm() {
         initComponents();
-        EntityManagerFactory entityManagerFactory = 
-            Persistence.createEntityManagerFactory("LocadoraVeiculosPU");
         
-        entityManager = entityManagerFactory.createEntityManager();
+        entityManager = DBConnection.getEntityManager();
+        
         
         buttonAtualizar.setEnabled(false);
         buttonDeletar.setEnabled(false);

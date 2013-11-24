@@ -9,6 +9,7 @@ package com.auadottonizaidem.locadoraveicolos.viewcontroller;
 import com.auadottonizaidem.locadoraveicolos.model.Cliente;
 import com.auadottonizaidem.locadoraveicolos.model.Locacao;
 import com.auadottonizaidem.locadoraveicolos.model.Veiculo;
+import com.auadottonizaidem.locadoraveiculo.utils.DBConnection;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,10 +36,7 @@ public class LocacaoForm extends javax.swing.JFrame {
         initComponents();
         buttonDevolucao.setEnabled(false);
         
-        EntityManagerFactory entityManagerFactory = 
-            Persistence.createEntityManagerFactory("LocadoraVeiculosPU");
-        
-        entityManager = entityManagerFactory.createEntityManager();
+        entityManager = DBConnection.getEntityManager();
         
         Query query = entityManager.createNamedQuery("Veiculo.findAll");
         List<Veiculo> veiculos = query.getResultList();

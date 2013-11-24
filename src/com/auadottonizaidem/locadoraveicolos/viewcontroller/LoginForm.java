@@ -7,6 +7,7 @@
 package com.auadottonizaidem.locadoraveicolos.viewcontroller;
 
 import com.auadottonizaidem.locadoraveicolos.model.Funcionario;
+import com.auadottonizaidem.locadoraveiculo.utils.DBConnection;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -101,8 +102,7 @@ public class LoginForm extends javax.swing.JFrame {
         String usuario = textFieldLogin.getText();
         String senha = textFieldSenha.getText();
         
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("LocadoraVeiculosPU");
-        EntityManager entity = factory.createEntityManager();
+        EntityManager entity = DBConnection.getEntityManager();
 
         try {
             Query query = entity.createNamedQuery("Funcionario.Autenticar")

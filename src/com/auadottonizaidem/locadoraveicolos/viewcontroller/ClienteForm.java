@@ -5,6 +5,7 @@
 package com.auadottonizaidem.locadoraveicolos.viewcontroller;
 
 import com.auadottonizaidem.locadoraveicolos.model.Cliente;
+import com.auadottonizaidem.locadoraveiculo.utils.DBConnection;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,23 +29,16 @@ public class ClienteForm extends javax.swing.JFrame {
     Cliente cli = null;
     EntityManager entity;
     List<Cliente> listClientes;
-    Query query = null;
     int id;
 
     /**
      * Creates new form ClienteForm
      */
     public ClienteForm() {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("LocadoraVeiculosPU");
-        entity = factory.createEntityManager();
-
-        entity.getTransaction().begin();
-
-        query = entity.createNamedQuery("Cliente.findAll");
-
-
         initComponents();
 
+        entity = DBConnection.getEntityManager();
+        
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date dataCad = new Date();
         String currentData = sdf.format(dataCad);
@@ -58,7 +52,7 @@ public class ClienteForm extends javax.swing.JFrame {
 
     private void atualizaTabela() {
 
-        listClientes = query.getResultList();
+        listClientes = entity.createNamedQuery("Cliente.findAll").getResultList();
 
         tbClientes.clearSelection();
         tbClientes.removeAll();
