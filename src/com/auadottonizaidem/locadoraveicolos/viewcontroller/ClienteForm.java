@@ -307,6 +307,7 @@ public class ClienteForm extends javax.swing.JFrame {
         lbNome.getAccessibleContext().setAccessibleName("lbNome");
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tfNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomeActionPerformed
