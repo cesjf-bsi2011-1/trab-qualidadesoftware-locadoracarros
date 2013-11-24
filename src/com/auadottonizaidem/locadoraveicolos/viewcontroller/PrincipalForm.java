@@ -7,6 +7,8 @@
 package com.auadottonizaidem.locadoraveicolos.viewcontroller;
 
 import com.auadottonizaidem.locadoraveicolos.model.Locacao;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -36,6 +38,8 @@ public class PrincipalForm extends javax.swing.JFrame {
         menuClientes = new javax.swing.JMenu();
         menuVeiculos = new javax.swing.JMenu();
         menuLocacoes = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -92,6 +96,18 @@ public class PrincipalForm extends javax.swing.JFrame {
         });
         jMenuBar1.add(menuLocacoes);
 
+        jMenu1.setText("Relatórios");
+
+        jMenuItem1.setText("Rentabilidade por Veículo");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
         menuSair.setText("Sair");
         menuSair.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -111,18 +127,22 @@ public class PrincipalForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 453, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGap(0, 281, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSairActionPerformed
-        dispose();
+        try {
+            finalize();
+        } catch (Throwable ex) {
+            Logger.getLogger(PrincipalForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_menuSairActionPerformed
 
     private void menuFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFuncionariosActionPerformed
@@ -161,8 +181,14 @@ public class PrincipalForm extends javax.swing.JFrame {
         new LocacaoForm().setVisible(true);
     }//GEN-LAST:event_menuLocacoesActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        new relatorioFaturamentoVeiculoform().setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu menuClientes;
     private javax.swing.JMenu menuFuncionarios;
     private javax.swing.JMenu menuLocacoes;

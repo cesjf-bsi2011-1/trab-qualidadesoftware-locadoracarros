@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Locacao.findAllNaoDevolvido", query = "SELECT l FROM Locacao l where l.dataDevolucao = 0"),
     @NamedQuery(name = "Locacao.findById", query = "SELECT l FROM Locacao l WHERE l.id = :id"),
     @NamedQuery(name = "Locacao.findByDataLocacao", query = "SELECT l FROM Locacao l WHERE l.dataLocacao = :dataLocacao"),
-    @NamedQuery(name = "Locacao.findByDataDevolucao", query = "SELECT l FROM Locacao l WHERE l.dataDevolucao = :dataDevolucao")})
+    @NamedQuery(name = "Locacao.findByDataDevolucao", query = "SELECT l FROM Locacao l WHERE l.dataDevolucao = :dataDevolucao"),
+    @NamedQuery(name = "Locacao.findByVeiculoLocado", query = "SELECT l FROM Locacao l WHERE l.veiculoLocado = :veiculoLocado")})
 public class Locacao implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
