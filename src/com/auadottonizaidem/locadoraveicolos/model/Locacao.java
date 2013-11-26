@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.auadottonizaidem.locadoraveicolos.model;
 
 import java.io.Serializable;
@@ -33,8 +32,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Locacao.findById", query = "SELECT l FROM Locacao l WHERE l.id = :id"),
     @NamedQuery(name = "Locacao.findByDataLocacao", query = "SELECT l FROM Locacao l WHERE l.dataLocacao = :dataLocacao"),
     @NamedQuery(name = "Locacao.findByDataDevolucao", query = "SELECT l FROM Locacao l WHERE l.dataDevolucao = :dataDevolucao"),
-    @NamedQuery(name = "Locacao.findByVeiculoLocado", query = "SELECT l FROM Locacao l WHERE l.veiculoLocado = :veiculoLocado")})
+    @NamedQuery(name = "Locacao.findByVeiculoLocado", query = "SELECT l FROM Locacao l WHERE l.veiculoLocado = :veiculoLocado"),
+    @NamedQuery(name = "Locacao.findByDataParameter", query = "SELECT l FROM Locacao l WHERE l.dataDevolucao > :dataBusca")})
 public class Locacao implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -142,5 +143,4 @@ public class Locacao implements Serializable {
     public String toString() {
         return "com.auadottonizaidem.locadoraveicolos.model.Locacao[ id=" + id + " ]";
     }
-    
 }
