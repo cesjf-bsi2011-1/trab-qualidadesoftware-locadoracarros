@@ -97,6 +97,8 @@ public class R_FaturamentoDiaForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         tfData = new javax.swing.JFormattedTextField();
+        jLabel2 = new javax.swing.JLabel();
+        lbTotal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -108,7 +110,7 @@ public class R_FaturamentoDiaForm extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Dia", "Faturamento"
+                "Carro", "Valor Locação"
             }
         ) {
             Class[] types = new Class [] {
@@ -155,6 +157,8 @@ public class R_FaturamentoDiaForm extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("TOTAL:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -168,8 +172,13 @@ public class R_FaturamentoDiaForm extends javax.swing.JFrame {
                         .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lbTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -188,7 +197,11 @@ public class R_FaturamentoDiaForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(lbTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(42, 42, 42))
         );
 
@@ -213,14 +226,19 @@ public class R_FaturamentoDiaForm extends javax.swing.JFrame {
 
             float fatura = faturamentoDiario();
 
+            
+            
             jTableRelatorioDia.clearSelection();
             jTableRelatorioDia.removeAll();
 
             DefaultTableModel dfTable = (DefaultTableModel) jTableRelatorioDia.getModel();
             dfTable.getDataVector().removeAllElements();
 
-            dfTable.addRow(new Object[]{dataForm, fatura});
-
+            for (int i = 0; i < listLocacoes.size(); i++) {
+                dfTable.addRow(new Object[]{listLocacoes.get(i).getVeiculoLocado().getNome(), listLocacoes.get(i).getVeiculoLocado().getPreco()});
+            }
+            lbTotal.setText(String.valueOf(fatura));
+            
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(null, "Data ínvalida, impossivel buscar!");
         }
@@ -235,8 +253,10 @@ public class R_FaturamentoDiaForm extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableRelatorioDia;
+    private javax.swing.JLabel lbTotal;
     private javax.swing.JFormattedTextField tfData;
     // End of variables declaration//GEN-END:variables
 }
